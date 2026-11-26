@@ -1,0 +1,385 @@
+[
+  {
+    "name": "A1 no http(s) URL anywhere in the CSS/HTML (no CDN, no Google Fonts)",
+    "ok": true
+  },
+  {
+    "name": "A2 all 8 font files are bundled and exist",
+    "ok": true,
+    "extra": "8 faces"
+  },
+  {
+    "name": "A3 Space Grotesk, JetBrains Mono and Vazirmatn are really loaded in the page",
+    "ok": true
+  },
+  {
+    "name": "B1 full window is transparent frameless 390 x 1020",
+    "ok": true
+  },
+  {
+    "name": "B2 card natural height == window height (nothing cut, nothing empty)",
+    "ok": true
+  },
+  {
+    "name": "B3 content fits: last element (opacity) ends inside the card",
+    "ok": true
+  },
+  {
+    "name": "B4 no session row overflows horizontally",
+    "ok": true
+  },
+  {
+    "name": "B5 card has rounded corners 22px + 1px border",
+    "ok": true
+  },
+  {
+    "name": "B6 page and window background fully transparent (rounded corners show the desktop)",
+    "ok": true
+  },
+  {
+    "name": "B7 header: TEHRAN + UTC, theme switch, 5 window buttons",
+    "ok": true
+  },
+  {
+    "name": "B8 digital clock, gold seconds, Gregorian + Persian (RTL) date",
+    "ok": true
+  },
+  {
+    "name": "B9 dial is 340px with 4 concentric rings, outside -> inside Sydney, Tokyo, London, New York",
+    "ok": true
+  },
+  {
+    "name": "B10 session names are SVG <textPath> on the ring paths; Tokyo + London use the reversed path",
+    "ok": true
+  },
+  {
+    "name": "B11 hour labels 00 03 06 ... 21 around the dial",
+    "ok": true
+  },
+  {
+    "name": "B12 gold seconds / tip / overlap strip use #F2C230",
+    "ok": true
+  },
+  {
+    "name": "B13 digital seconds tick live",
+    "ok": true,
+    "extra": ":27 -> :30"
+  },
+  {
+    "name": "B14 hand points at the current Tehran hour (24h dial, ±1.5°)",
+    "ok": true,
+    "extra": "267.13 vs 267.13"
+  },
+  {
+    "name": "B15 hand moves every second (live)",
+    "ok": true
+  },
+  {
+    "name": "B16 Tehran digital time matches Intl Asia/Tehran (±2s)",
+    "ok": true,
+    "extra": "17:48:30 vs 17:48:30"
+  },
+  {
+    "name": "B17 timeline: axis 00/06/12/18/24, 4 rows with bar, NOW line + NOW pill",
+    "ok": true
+  },
+  {
+    "name": "B18 opacity slider at the bottom, 40..100",
+    "ok": true
+  },
+  {
+    "name": "B19 full view: viewport has no horizontal overflow at this size",
+    "ok": true
+  },
+  {
+    "name": "C1 Fri 18:00 Tehran: London x NY overlap active (strip, tags, band on rings and timeline)",
+    "ok": true,
+    "extra": "{\"strip\":\"LON × NY OVERLAPends in 02:30:00 · 16:30–20:30\",\"soon\":false,\"tags\":[\"CLOSED\",\"CLOSED\",\"OVERLAP\",\"OVERLAP\"],\"band\":true,\"bandL\":68.75,\"bandW\":16.667,\"bandLine\":1,\"bandFill\":1,\"closedArcs\":[true,true,false,false],\"now\":\"NOW 18:00\"}"
+  },
+  {
+    "name": "C2 timeline overlap column = 16:30-20:30 (left 68.75%, width 16.67%)",
+    "ok": true,
+    "extra": "68.75 / 16.667"
+  },
+  {
+    "name": "C3 closed sessions (Sydney, Tokyo) drawn at 55% opacity, open ones solid",
+    "ok": true
+  },
+  {
+    "name": "C4 strip text shows the countdown to 20:30 and the 16:30–20:30 range",
+    "ok": true,
+    "extra": "LON × NY OVERLAPends in 02:30:00 · 16:30–20:30"
+  },
+  {
+    "name": "C5 NOW pill follows the faked time",
+    "ok": true,
+    "extra": "NOW 18:00"
+  },
+  {
+    "name": "C1b overlap state: no row overflows (OVERLAP tag + countdown fit in 390px)",
+    "ok": true
+  },
+  {
+    "name": "C6 16:29 Tehran: no overlap yet (New York still closed)",
+    "ok": true,
+    "extra": "[[\"CLOSED\",\"CLOSED\",\"OPEN\",\"CLOSED\"],true]"
+  },
+  {
+    "name": "C7 16:31 Tehran: overlap begins",
+    "ok": true
+  },
+  {
+    "name": "C8 20:29 Tehran: still overlapping",
+    "ok": true
+  },
+  {
+    "name": "C9 20:31 Tehran: London closed, New York alone OPEN, strip switches to the next overlap",
+    "ok": true,
+    "extra": "[[\"CLOSED\",\"CLOSED\",\"CLOSED\",\"OPEN\"],\"NEXT LON × NY OVERLAPin 2d 19:58:59 · 16:30–20:30\"]"
+  },
+  {
+    "name": "C10 Saturday: all four sessions CLOSED, faint ghost arcs keep the names visible",
+    "ok": true,
+    "extra": "[\"CLOSED\",\"CLOSED\",\"CLOSED\",\"CLOSED\"]"
+  },
+  {
+    "name": "C11 00:05 Tehran Friday: New York (16:30-01:30) draws ONE arc across midnight",
+    "ok": true
+  },
+  {
+    "name": "D1 dark theme colours from the design (bg #0D1218, syd #5E86C2, tok #9477D1, lon #34C48F, ny #F29443)",
+    "ok": true
+  },
+  {
+    "name": "D2 dark ring-name colours (Sydney/Tokyo light, London #06231A, NY #2A1500)",
+    "ok": true
+  },
+  {
+    "name": "D3 light theme applied (bg #F3F0E9, syd #3A62A0, hand #18212B, names white on London/NY)",
+    "ok": true
+  },
+  {
+    "name": "D4 theme buttons reflect the state (aria-pressed)",
+    "ok": true
+  },
+  {
+    "name": "D5 theme stored in settings",
+    "ok": true
+  },
+  {
+    "name": "D6 theme survives re-creating the window (read before first paint)",
+    "ok": true
+  },
+  {
+    "name": "D7 theme written to settings.json (persists after quit / restart)",
+    "ok": true
+  },
+  {
+    "name": "E1 Always on top default ON",
+    "ok": true
+  },
+  {
+    "name": "E2 pin button -> Always on top OFF",
+    "ok": true
+  },
+  {
+    "name": "E3 pin button -> Always on top ON (gold)",
+    "ok": true
+  },
+  {
+    "name": "E4 lock: window not movable (OS level)",
+    "ok": true,
+    "skipped": true
+  },
+  {
+    "name": "E5 lock: UI drag region disabled, resize handle hidden",
+    "ok": true
+  },
+  {
+    "name": "E6 lock: resize requests are ignored",
+    "ok": true
+  },
+  {
+    "name": "E7 unlock: draggable again",
+    "ok": true
+  },
+  {
+    "name": "E8 tray icon exists",
+    "ok": true
+  },
+  {
+    "name": "E9 minimize button hides to tray",
+    "ok": true
+  },
+  {
+    "name": "E10 restore from tray; clock keeps ticking",
+    "ok": true
+  },
+  {
+    "name": "E11 close button hides to tray (closeToTray)",
+    "ok": true
+  },
+  {
+    "name": "E12 opacity slider -> 0.6",
+    "ok": true
+  },
+  {
+    "name": "E13 opacity applied to the window (OS level)",
+    "ok": true,
+    "skipped": true
+  },
+  {
+    "name": "E14 opacity floor is 40%",
+    "ok": true
+  },
+  {
+    "name": "F1 dragging the bottom handle 100px down grows the widget (~+9.8%, aspect locked)",
+    "ok": true,
+    "extra": "{\"x\":40,\"y\":10,\"width\":428,\"height\":1119}"
+  },
+  {
+    "name": "F2 shrink to 300px: content scales (zoom = width/390) and still fits",
+    "ok": true,
+    "extra": "zoom 0.769231"
+  },
+  {
+    "name": "F3 dial scales with the window",
+    "ok": true
+  },
+  {
+    "name": "F4 maximum width 780",
+    "ok": true
+  },
+  {
+    "name": "F5 minimum width 190",
+    "ok": true
+  },
+  {
+    "name": "F6 size persisted to settings.json",
+    "ok": true
+  },
+  {
+    "name": "G1 settings panel covers the card, all its controls are no-drag (clickable)",
+    "ok": true
+  },
+  {
+    "name": "G2 controls are really hit-testable (not covered)",
+    "ok": true
+  },
+  {
+    "name": "G3 session hours editable and applied",
+    "ok": true,
+    "extra": "09:00–17:00 · 12:30–20:30 Tehran"
+  },
+  {
+    "name": "G4 invalid input rejected with a message",
+    "ok": true
+  },
+  {
+    "name": "G5 theme selectable in settings too",
+    "ok": true
+  },
+  {
+    "name": "G6 off-screen saved position is moved onto a connected display",
+    "ok": true,
+    "extra": "{\"x\":650,\"y\":227,\"width\":400,\"height\":1046}"
+  },
+  {
+    "name": "H1 maximize button switches full -> compact (window re-created, round transparent)",
+    "ok": true
+  },
+  {
+    "name": "H2 compact window is square",
+    "ok": true,
+    "extra": "{\"x\":40,\"y\":10,\"width\":300,\"height\":300}"
+  },
+  {
+    "name": "H3 no dashboard in compact: card hidden, only the dial",
+    "ok": true
+  },
+  {
+    "name": "H4 compact page is transparent (no square background)",
+    "ok": true
+  },
+  {
+    "name": "H5 compact dial: viewBox 380, rings 112/96/80/64, names on the rings",
+    "ok": true
+  },
+  {
+    "name": "H6 seven ring buttons + size button, always visible",
+    "ok": true
+  },
+  {
+    "name": "H7 bottom arc order right->left: minimize, lock, pin, maximize, settings, sun, moon",
+    "ok": true
+  },
+  {
+    "name": "H8 size button (gold dot) is bottom-right",
+    "ok": true
+  },
+  {
+    "name": "H9 buttons sit inside the disc and do not overlap",
+    "ok": true
+  },
+  {
+    "name": "H10 every button is on top at its centre (hit test) and is no-drag",
+    "ok": true
+  },
+  {
+    "name": "H11 DOM order: drag layer first, all buttons after it (Windows applies regions in order)",
+    "ok": true
+  },
+  {
+    "name": "H12 compact dial ticks live (hand moves)",
+    "ok": true
+  },
+  {
+    "name": "H13 compact: sun button -> light theme (design E colours disc #FBF9F4)",
+    "ok": true
+  },
+  {
+    "name": "H14 compact: moon button -> dark theme (disc #131A22)",
+    "ok": true
+  },
+  {
+    "name": "H15 compact pin button toggles Always on top",
+    "ok": true
+  },
+  {
+    "name": "H16 gold-dot size button cycles 240 -> 300 -> 380 -> 460 -> 240 (square each time)",
+    "ok": true,
+    "extra": "[300,380,460,240,300]"
+  },
+  {
+    "name": "H17 compact content scales with the window (zoom = width/380)",
+    "ok": true,
+    "extra": "1.21053"
+  },
+  {
+    "name": "H18 smallest size 240 still hit-testable",
+    "ok": true,
+    "extra": "{\"x\":40,\"y\":10,\"width\":300,\"height\":300}"
+  },
+  {
+    "name": "H19 compact lock: size button / drag disabled",
+    "ok": true
+  },
+  {
+    "name": "H20 compact size persisted separately from full size",
+    "ok": true,
+    "extra": "[{\"x\":40,\"y\":10,\"width\":390,\"height\":1020},{\"x\":40,\"y\":10,\"width\":300,\"height\":300}]"
+  },
+  {
+    "name": "H21 compact gear -> full view with settings panel open",
+    "ok": true
+  },
+  {
+    "name": "H22 back in full view with the remembered full size",
+    "ok": true,
+    "extra": "{\"x\":40,\"y\":10,\"width\":390,\"height\":1020}"
+  },
+  {
+    "name": "H23 compact maximize button -> full view",
+    "ok": true
+  }
+]

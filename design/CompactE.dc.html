@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Compact Dial</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+body{margin:0}
+button{font-family:inherit;cursor:pointer;padding:0}
+</style>
+</helmet>
+<div style="width:380px;height:380px;box-sizing:border-box;background:{{c.bg}};font-family:'Space Grotesk',system-ui,sans-serif;display:flex;align-items:center;justify-content:center">
+<div style="position:relative;width:380px;height:380px">
+<svg width="380" height="380" viewBox="0 0 380 380" role="img" aria-label="Compact 24-hour session dial in Tehran time. Now 16:59. London and New York overlap." style="display:block">
+<defs>
+<path id="tpSyd" d="{{d.syd}}"></path>
+<path id="tpTok" d="{{d.tokR}}"></path>
+<path id="tpLon" d="{{d.lonR}}"></path>
+<path id="tpNy" d="{{d.ny}}"></path>
+</defs>
+<circle cx="190" cy="190" r="182" fill="{{c.disc}}" stroke="{{c.line}}" stroke-width="1.5"></circle>
+<circle cx="190" cy="190" r="112" fill="none" stroke="{{c.track}}" stroke-width="10"></circle>
+<circle cx="190" cy="190" r="96" fill="none" stroke="{{c.track}}" stroke-width="10"></circle>
+<circle cx="190" cy="190" r="80" fill="none" stroke="{{c.track}}" stroke-width="10"></circle>
+<circle cx="190" cy="190" r="64" fill="none" stroke="{{c.track}}" stroke-width="10"></circle>
+<path d="{{d.syd}}" fill="none" stroke="{{c.syd}}" stroke-opacity="0.55" stroke-width="10" stroke-linecap="round"></path>
+<path d="{{d.tok}}" fill="none" stroke="{{c.tok}}" stroke-opacity="0.55" stroke-width="10" stroke-linecap="round"></path>
+<path d="{{d.lon}}" fill="none" stroke="{{c.lon}}" stroke-width="10" stroke-linecap="round"></path>
+<path d="{{d.ny}}" fill="none" stroke="{{c.ny}}" stroke-width="10" stroke-linecap="round"></path>
+<path d="{{d.band}}" fill="none" stroke="{{c.goldBg}}" stroke-opacity="{{g.bandOp}}" stroke-width="34"></path>
+<path d="{{d.bandOutline}}" fill="none" stroke="{{c.goldBg}}" stroke-opacity="{{g.lineOp}}" stroke-width="1.8" stroke-linejoin="round"></path>
+<text font-size="7.5" font-weight="700" letter-spacing="1.1" fill="{{c.tSyd}}" text-anchor="middle" dy="2.6" style="font-family:'Space Grotesk',sans-serif"><textPath href="#tpSyd" startOffset="50%">SYDNEY</textPath></text>
+<text font-size="7.5" font-weight="700" letter-spacing="1.1" fill="{{c.tTok}}" text-anchor="middle" dy="2.6" style="font-family:'Space Grotesk',sans-serif"><textPath href="#tpTok" startOffset="50%">TOKYO</textPath></text>
+<text font-size="7.5" font-weight="700" letter-spacing="1.1" fill="{{c.tLon}}" text-anchor="middle" dy="2.6" style="font-family:'Space Grotesk',sans-serif"><textPath href="#tpLon" startOffset="50%">LONDON</textPath></text>
+<text font-size="7.5" font-weight="700" letter-spacing="1.1" fill="{{c.tNy}}" text-anchor="middle" dy="2.6" style="font-family:'Space Grotesk',sans-serif"><textPath href="#tpNy" startOffset="50%">NEW YORK</textPath></text>
+<path d="{{d.minor}}" stroke="{{c.tick}}" stroke-width="1.4" stroke-linecap="round" fill="none"></path>
+<path d="{{d.major}}" stroke="{{c.tickMajor}}" stroke-width="2.4" stroke-linecap="round" fill="none"></path>
+<line x1="{{h.x0}}" y1="{{h.y0}}" x2="{{h.x1}}" y2="{{h.y1}}" stroke="{{c.hand}}" stroke-width="3" stroke-linecap="round"></line>
+<circle cx="{{h.x1}}" cy="{{h.y1}}" r="5.5" fill="{{c.goldBg}}" stroke="{{c.disc}}" stroke-width="2"></circle>
+<circle cx="190" cy="190" r="6.5" fill="{{c.hand}}"></circle>
+<circle cx="190" cy="190" r="2.3" fill="{{c.disc}}"></circle>
+</svg>
+
+<sc-for list="{{labels}}" as="l" hint-placeholder-count="8">
+<div style="position:absolute;left:{{l.x}}px;top:{{l.y}}px;transform:translate(-50%,-50%);font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:{{l.w}};color:{{l.col}}">{{l.t}}</div>
+</sc-for>
+
+<button type="button" aria-label="Settings" style="position:absolute;left:{{pos.gear.l}}px;top:{{pos.gear.t}}px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{c.btn}};border:1px solid {{c.line}};color:{{c.mute}}">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+</button>
+<button type="button" aria-label="Maximize (full widget)" style="position:absolute;left:{{pos.max.l}}px;top:{{pos.max.t}}px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{c.btn}};border:1px solid {{c.line}};color:{{c.mute}}">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+</button>
+<button type="button" aria-label="Pin on top" aria-pressed="{{pinned}}" onClick="{{togglePin}}" style="position:absolute;left:{{pos.pin.l}}px;top:{{pos.pin.t}}px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{pinBtn.bg}};border:1px solid {{pinBtn.bd}};color:{{pinBtn.fg}}">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17v5M9 3h6l-1 6 3 3v2H7v-2l3-3-1-6z"></path></svg>
+</button>
+<button type="button" aria-label="Lock position" aria-pressed="{{locked}}" onClick="{{toggleLock}}" style="position:absolute;left:{{pos.lock.l}}px;top:{{pos.lock.t}}px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{lockBtn.bg}};border:1px solid {{lockBtn.bd}};color:{{lockBtn.fg}}">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+</button>
+<button type="button" aria-label="Minimize" style="position:absolute;left:{{pos.min.l}}px;top:{{pos.min.t}}px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{c.btn}};border:1px solid {{c.line}};color:{{c.mute}}">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"></path></svg>
+</button>
+<button type="button" aria-label="Resize: bigger or smaller" style="position:absolute;left:{{pos.size.l}}px;top:{{pos.size.t}}px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{c.btn}};border:1px solid {{c.line}};color:{{c.goldText}}">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke-width="1.8"></circle><circle cx="12" cy="12" r="3.6" fill="currentColor" stroke="none"></circle></svg>
+</button>
+<button type="button" aria-label="Light theme" aria-pressed="{{isLight}}" onClick="{{setLight}}" style="position:absolute;left:{{pos.sun.l}}px;top:{{pos.sun.t}}px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{lightBtn.bg}};border:1px solid {{lightBtn.bd}};color:{{lightBtn.fg}}">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+</button>
+<button type="button" aria-label="Dark theme" aria-pressed="{{isDark}}" onClick="{{setDark}}" style="position:absolute;left:{{pos.moon.l}}px;top:{{pos.moon.t}}px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{darkBtn.bg}};border:1px solid {{darkBtn.bd}};color:{{darkBtn.fg}}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"></path></svg>
+</button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"overlapActive":{"editor":"boolean","default":true},"$preview":{"width":380,"height":380}}'>
+class Component extends DCLogic {
+  state = { mode: null, pinned: true, locked: false };
+  renderVals() {
+    const mode = this.state.mode || this.props.theme || 'dark';
+    const dark = mode === 'dark';
+    const c = dark ? {
+      bg:'#0D1218', disc:'#131A22', btn:'#1B2530', line:'#2A384A', fg:'#EAF0F6', mute:'#9AA8B8', track:'#212C3A',
+      tick:'#3A4A5E', tickMajor:'#8796A8', syd:'#5E86C2', tok:'#9477D1', lon:'#34C48F', ny:'#F29443',
+      goldBg:'#F2C230', goldText:'#F2C230', hand:'#EAF0F6', tSyd:'#EAF0F6', tTok:'#EAF0F6', tLon:'#06231A', tNy:'#2A1500'
+    } : {
+      bg:'#F3F0E9', disc:'#FBF9F4', btn:'#FFFFFF', line:'#D6CFC0', fg:'#18212B', mute:'#4F5B69', track:'#E8E3D8',
+      tick:'#C3BCAD', tickMajor:'#5A6776', syd:'#3A62A0', tok:'#6A4BAA', lon:'#12866A', ny:'#C3600F',
+      goldBg:'#F2C230', goldText:'#946A00', hand:'#18212B', tSyd:'#18212B', tTok:'#18212B', tLon:'#FFFFFF', tNy:'#FFFFFF'
+    };
+    const cx = 190, cy = 190;
+    const P = (r, deg) => { const a = (deg - 90) * Math.PI / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; };
+    const f = (n) => n.toFixed(2);
+    const arc = (r, h0, h1) => {
+      const [x0, y0] = P(r, h0 * 15); const [x1, y1] = P(r, h1 * 15);
+      const large = (h1 - h0) * 15 > 180 ? 1 : 0;
+      return `M${f(x0)} ${f(y0)} A${r} ${r} 0 ${large} 1 ${f(x1)} ${f(y1)}`;
+    };
+    const rev = (r, h0, h1) => {
+      const [x0, y0] = P(r, h0 * 15); const [x1, y1] = P(r, h1 * 15);
+      const large = (h1 - h0) * 15 > 180 ? 1 : 0;
+      return `M${f(x1)} ${f(y1)} A${r} ${r} 0 ${large} 0 ${f(x0)} ${f(y0)}`;
+    };
+    let minor = '', major = '';
+    for (let h = 0; h < 24; h++) {
+      const maj = h % 6 === 0;
+      const [x0, y0] = P(130, h * 15); const [x1, y1] = P(maj ? 121 : 125, h * 15);
+      const seg = `M${f(x0)} ${f(y0)}L${f(x1)} ${f(y1)}`;
+      if (maj) major += seg; else minor += seg;
+    }
+    const labels = [];
+    for (let h = 0; h < 24; h += 3) {
+      const [x, y] = P(141, h * 15);
+      const big = h % 6 === 0;
+      labels.push({ x: f(x), y: f(y), t: String(h).padStart(2, '0'), w: big ? 700 : 400, col: big ? c.fg : c.mute });
+    }
+    const now = 16 + 59.52 / 60;
+    const [hx0, hy0] = P(-14, now * 15); const [hx1, hy1] = P(118, now * 15);
+    const [oax, oay] = P(89, 16.5 * 15); const [obx, oby] = P(89, 20.5 * 15);
+    const [icx, icy] = P(55, 20.5 * 15); const [idx, idy] = P(55, 16.5 * 15);
+    const bandOutline = `M${f(oax)} ${f(oay)} A89 89 0 0 1 ${f(obx)} ${f(oby)} L${f(icx)} ${f(icy)} A55 55 0 0 0 ${f(idx)} ${f(idy)} Z`;
+    const at = (deg) => { const [x, y] = P(166, deg); return { l: f(x - 12), t: f(y - 12) }; };
+    const pos = { gear: at(212), max: at(196), pin: at(180), lock: at(164), min: at(148), sun: at(228), moon: at(244), size: at(120) };
+    const pinned = this.state.pinned; const locked = this.state.locked;
+    const ovActive = this.props.overlapActive ?? true;
+    const g = { bandOp: ovActive ? 0.32 : 0, lineOp: ovActive ? 1 : 0 };
+    const on = { bg: c.goldBg, bd: c.goldBg, fg: '#1A1400' };
+    const off = { bg: c.btn, bd: c.line, fg: c.mute };
+    return {
+      c, labels, pos, pinned, locked, g,
+      d: { tokR: rev(96, 3.5, 12.5), lonR: rev(80, 11.5, 20.5), bandOutline, band: arc(72, 16.5, 20.5), syd: arc(112, 23.5, 32.5), tok: arc(96, 3.5, 12.5), lon: arc(80, 11.5, 20.5), ny: arc(64, 16.5, 25.5), minor, major },
+      h: { x0: f(hx0), y0: f(hy0), x1: f(hx1), y1: f(hy1) },
+      pinBtn: pinned ? on : off, lockBtn: locked ? on : off,
+      themeLabel: dark ? 'Switch to light theme' : 'Switch to dark theme',
+      sunDisp: dark ? 'block' : 'none', moonDisp: dark ? 'none' : 'block',
+      togglePin: () => this.setState({ pinned: !this.state.pinned }),
+      toggleLock: () => this.setState({ locked: !this.state.locked }),
+      isLight: !dark, isDark: dark,
+      lightBtn: { bg: dark ? c.btn : c.fg, bd: dark ? c.line : c.fg, fg: dark ? c.mute : c.bg },
+      darkBtn: { bg: dark ? c.fg : c.btn, bd: dark ? c.fg : c.line, fg: dark ? c.bg : c.mute },
+      setLight: () => this.setState({ mode: 'light' }),
+      setDark: () => this.setState({ mode: 'dark' })
+    };
+  }
+}
+</script>
+</body>
+</html>

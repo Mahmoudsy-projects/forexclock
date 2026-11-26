@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dial and Timeline</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Vazirmatn:wght@400;500&display=swap">
+<style>
+body{margin:0}
+button{font-family:inherit;cursor:pointer}
+</style>
+</helmet>
+<div style="width:390px;box-sizing:border-box;padding:18px 20px 20px;border-radius:22px;border:1px solid {{c.line}};background:{{c.bg}};color:{{c.fg}};font-family:'Space Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;gap:14px">
+
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+<div style="display:flex;align-items:baseline;gap:8px">
+<span style="font-weight:700;font-size:13px;letter-spacing:0.14em">TEHRAN</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:{{c.mute}}">UTC+03:30</span>
+</div>
+<div style="display:flex;align-items:center;gap:6px">
+<div role="group" aria-label="Theme" style="display:flex;gap:2px;padding:3px;border-radius:999px;background:{{c.panel}};border:1px solid {{c.line}}">
+<button type="button" aria-label="Light theme" aria-pressed="{{isLight}}" onClick="{{setLight}}" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border-radius:999px;border:0;background:{{lightBtn.bg}};color:{{lightBtn.fg}}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+</button>
+<button type="button" aria-label="Dark theme" aria-pressed="{{isDark}}" onClick="{{setDark}}" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border-radius:999px;border:0;background:{{darkBtn.bg}};color:{{darkBtn.fg}}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"></path></svg>
+</button>
+</div>
+<div role="group" aria-label="Window controls" style="display:flex;align-items:center;gap:3px">
+<button type="button" aria-label="Pin on top" aria-pressed="{{pinned}}" onClick="{{togglePin}}" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border-radius:8px;background:{{pinBtn.bg}};border:1px solid {{pinBtn.bd}};color:{{pinBtn.fg}}">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17v5M9 3h6l-1 6 3 3v2H7v-2l3-3-1-6z"></path></svg>
+</button>
+<button type="button" aria-label="Lock position" aria-pressed="{{locked}}" onClick="{{toggleLock}}" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border-radius:8px;background:{{lockBtn.bg}};border:1px solid {{lockBtn.bd}};color:{{lockBtn.fg}}">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+</button>
+<button type="button" aria-label="Maximize or restore" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border-radius:8px;background:{{c.panel}};border:1px solid {{c.line}};color:{{c.mute}}">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+</button>
+<button type="button" aria-label="Settings" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border-radius:8px;background:{{c.panel}};border:1px solid {{c.line}};color:{{c.mute}}">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+</button>
+<button type="button" aria-label="Minimize" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border-radius:8px;background:{{c.panel}};border:1px solid {{c.line}};color:{{c.mute}}">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"></path></svg>
+</button>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+<div style="display:flex;align-items:baseline;gap:2px;font-family:'JetBrains Mono',monospace;font-weight:700;line-height:1">
+<span style="font-size:56px;letter-spacing:-0.02em">07:21</span>
+<span style="font-size:28px;color:{{c.goldText}}">:59</span>
+</div>
+<div style="font-size:12.5px;color:{{c.mute}}">Monday 16 November 2026</div>
+<div dir="rtl" lang="fa" style="font-family:'Vazirmatn',system-ui,sans-serif;font-size:12.5px;color:{{c.mute}}">۲۵ آبان ۱۴۰۵، دوشنبه</div>
+</div>
+
+<div style="position:relative;width:340px;height:340px;align-self:center">
+<svg width="340" height="340" viewBox="0 0 340 340" role="img" aria-label="24-hour session dial in Tehran time. Now 07:21. Sydney and Tokyo are open. Gold shade appears when London and New York overlap." style="display:block">
+<defs>
+<path id="tpSyd" d="{{d.syd}}"></path>
+<path id="tpTok" d="{{d.tokR}}"></path>
+<path id="tpLon" d="{{d.lonR}}"></path>
+<path id="tpNy" d="{{d.ny}}"></path>
+</defs>
+<circle cx="170" cy="170" r="152" fill="{{c.disc}}" stroke="{{c.line}}" stroke-width="1"></circle>
+<circle cx="170" cy="170" r="124" fill="none" stroke="{{c.track}}" stroke-width="12"></circle>
+<circle cx="170" cy="170" r="106" fill="none" stroke="{{c.track}}" stroke-width="12"></circle>
+<circle cx="170" cy="170" r="88" fill="none" stroke="{{c.track}}" stroke-width="12"></circle>
+<circle cx="170" cy="170" r="70" fill="none" stroke="{{c.track}}" stroke-width="12"></circle>
+<path d="{{d.syd}}" fill="none" stroke="{{c.syd}}" stroke-opacity="{{o.syd}}" stroke-width="12" stroke-linecap="round"></path>
+<path d="{{d.tok}}" fill="none" stroke="{{c.tok}}" stroke-opacity="{{o.tok}}" stroke-width="12" stroke-linecap="round"></path>
+<path d="{{d.lon}}" fill="none" stroke="{{c.lon}}" stroke-opacity="{{o.lon}}" stroke-width="12" stroke-linecap="round"></path>
+<path d="{{d.ny}}" fill="none" stroke="{{c.ny}}" stroke-opacity="{{o.ny}}" stroke-width="12" stroke-linecap="round"></path>
+<path d="{{d.band}}" fill="none" stroke="{{c.goldBg}}" stroke-opacity="{{g.bandOp}}" stroke-width="40"></path>
+<path d="{{d.bandOutline}}" fill="none" stroke="{{c.goldBg}}" stroke-opacity="{{g.lineOp}}" stroke-width="1.8" stroke-linejoin="round"></path>
+<text font-size="8.5" font-weight="700" letter-spacing="1.4" fill="{{c.tSyd}}" text-anchor="middle" dy="3" style="font-family:'Space Grotesk',sans-serif"><textPath href="#tpSyd" startOffset="50%">SYDNEY</textPath></text>
+<text font-size="8.5" font-weight="700" letter-spacing="1.4" fill="{{c.tTok}}" text-anchor="middle" dy="3" style="font-family:'Space Grotesk',sans-serif"><textPath href="#tpTok" startOffset="50%">TOKYO</textPath></text>
+<text font-size="8.5" font-weight="700" letter-spacing="1.4" fill="{{c.tLon}}" text-anchor="middle" dy="3" style="font-family:'Space Grotesk',sans-serif"><textPath href="#tpLon" startOffset="50%">LONDON</textPath></text>
+<text font-size="8.5" font-weight="700" letter-spacing="1.4" fill="{{c.tNy}}" text-anchor="middle" dy="3" style="font-family:'Space Grotesk',sans-serif"><textPath href="#tpNy" startOffset="50%">NEW YORK</textPath></text>
+<path d="{{d.minor}}" stroke="{{c.tick}}" stroke-width="1.5" stroke-linecap="round" fill="none"></path>
+<path d="{{d.major}}" stroke="{{c.tickMajor}}" stroke-width="2.5" stroke-linecap="round" fill="none"></path>
+<line x1="{{h.x0}}" y1="{{h.y0}}" x2="{{h.x1}}" y2="{{h.y1}}" stroke="{{c.hand}}" stroke-width="3" stroke-linecap="round"></line>
+<circle cx="{{h.x1}}" cy="{{h.y1}}" r="6" fill="{{c.goldBg}}" stroke="{{c.disc}}" stroke-width="2"></circle>
+<circle cx="170" cy="170" r="7" fill="{{c.hand}}"></circle>
+<circle cx="170" cy="170" r="2.5" fill="{{c.disc}}"></circle>
+</svg>
+<sc-for list="{{labels}}" as="l" hint-placeholder-count="8">
+<div style="position:absolute;left:{{l.x}}px;top:{{l.y}}px;transform:translate(-50%,-50%);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:{{l.w}};color:{{l.col}}">{{l.t}}</div>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 2px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.16em;color:{{c.mute}}">NEXT EVENTS</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:{{c.mute}}">Tehran time</span>
+</div>
+<sc-for list="{{events}}" as="e" hint-placeholder-count="7">
+<div style="display:flex;align-items:center;gap:10px;padding:{{e.pad}};border-radius:10px;background:{{e.bg}};border:1px solid {{e.bd}}">
+<span style="width:9px;height:9px;border-radius:50%;background:{{e.col}};flex:none"></span>
+<span style="font-weight:{{e.nameW}};font-size:{{e.nameSize}}px">{{e.name}}</span>
+<span style="padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:0.06em;background:{{e.kindBg}};color:{{e.kindFg}};border:1px solid {{e.kindBd}}">{{e.kind}}</span>
+<span style="flex:1"></span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:{{e.timeSize}}px;font-weight:700">{{e.time}}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:{{e.cdSize}}px;color:{{e.cdCol}};min-width:{{e.cdW}}px;text-align:right">{{e.cd}}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="position:relative;display:flex;flex-direction:column;gap:14px;padding:6px 0 30px">
+<div style="position:relative;height:16px">
+<sc-for list="{{axis}}" as="a" hint-placeholder-count="5">
+<span style="position:absolute;top:0;left:{{a.left}}%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:11px;color:{{c.mute}}">{{a.t}}</span>
+</sc-for>
+</div>
+
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+<div style="display:flex;align-items:baseline;gap:8px">
+<span style="width:8px;height:8px;border-radius:50%;background:{{r.col}};align-self:center"></span>
+<span style="font-weight:700;font-size:14px">{{r.name}}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px">{{r.clock}}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:{{c.mute}}">{{r.utc}}</span>
+</div>
+<div style="display:flex;align-items:center;gap:8px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:{{c.mute}}">{{r.cd}}</span>
+<span style="padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:0.06em;background:{{r.tagBg}};color:{{r.tagFg}}">{{r.tag}}</span>
+</div>
+</div>
+<div style="position:relative;height:16px;border-radius:8px;background:{{c.track}};overflow:hidden">
+<div style="position:absolute;top:0;bottom:0;left:{{r.l1}}%;width:{{r.w1}}%;border-radius:8px;background:{{r.col}};opacity:{{r.op}}"></div>
+<div style="position:absolute;top:0;bottom:0;left:{{r.l2}}%;width:{{r.w2}}%;border-radius:8px;background:{{r.col}};opacity:{{r.op}}"></div>
+</div>
+<div style="font-size:10.5px;color:{{c.mute}}">{{r.span}}</div>
+</div>
+</sc-for>
+
+
+<div style="position:absolute;top:28px;bottom:30px;left:{{band.left}}%;width:{{band.w}}%;background:{{c.band}};border:1.5px solid {{c.goldBg}};box-sizing:border-box;border-radius:6px;opacity:{{g.colOp}};pointer-events:none"></div>
+<div style="position:absolute;top:24px;bottom:30px;left:{{nowPct}}%;width:2px;margin-left:-1px;background:{{c.fg}};pointer-events:none"></div>
+<div style="position:absolute;bottom:2px;left:{{nowPct}}%;transform:translateX(-50%);padding:3px 10px;border-radius:999px;background:{{c.fg}};color:{{c.bg}};font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700">NOW 07:21</div>
+</div>
+
+<div style="display:flex;align-items:flex-start;gap:8px;font-size:10.5px;color:{{c.mute}};line-height:1.5">
+<span>Overlaps: SYD×TOK 03:30–08:30 · TOK×LON 11:30–12:30 · LON×NY 16:30–20:30 (gold when active) · NY×SYD 23:30–01:30</span>
+</div>
+</div>
+
+<label style="display:flex;align-items:center;gap:12px;font-size:11.5px;color:{{c.mute}}">
+Opacity
+<input type="range" min="40" max="100" value="100" style="flex:1;accent-color:{{c.hand}}">
+</label>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":390,"height":1300}}'>
+class Component extends DCLogic {
+  state = { mode: null, pinned: true, locked: false };
+  renderVals() {
+    const mode = this.state.mode || this.props.theme || 'dark';
+    const dark = mode === 'dark';
+    const c = dark ? {
+      bg:'#0D1218', panel:'#151C25', disc:'#10161D', line:'#243040', fg:'#EAF0F6', mute:'#93A1B1', track:'#1C2632',
+      tick:'#3A4A5E', tickMajor:'#8796A8', syd:'#5E86C2', tok:'#9477D1', lon:'#34C48F', ny:'#F29443',
+      goldBg:'#F2C230', goldText:'#F2C230', hand:'#EAF0F6', closedBg:'#243040', closedFg:'#B4C0CE', band:'rgba(242,194,48,0.30)',
+      inkOpen:'#0A1118', inkClosed:'#EAF0F6'
+    } : {
+      bg:'#F3F0E9', panel:'#FFFFFF', disc:'#FBF9F4', line:'#DDD7CA', fg:'#18212B', mute:'#5A6776', track:'#E8E3D8',
+      tick:'#C3BCAD', tickMajor:'#5A6776', syd:'#3A62A0', tok:'#6A4BAA', lon:'#12866A', ny:'#C3600F',
+      goldBg:'#F2C230', goldText:'#946A00', hand:'#18212B', closedBg:'#ECE7DC', closedFg:'#4F5B69', band:'rgba(242,194,48,0.40)',
+      inkOpen:'#FFFFFF', inkClosed:'#18212B'
+    };
+    const cx = 170, cy = 170;
+    const P = (r, deg) => { const a = (deg - 90) * Math.PI / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; };
+    const f = (n) => n.toFixed(2);
+    const arc = (r, h0, h1) => {
+      const [x0, y0] = P(r, h0 * 15); const [x1, y1] = P(r, h1 * 15);
+      const large = (h1 - h0) * 15 > 180 ? 1 : 0;
+      return `M${f(x0)} ${f(y0)} A${r} ${r} 0 ${large} 1 ${f(x1)} ${f(y1)}`;
+    };
+    const rev = (r, h0, h1) => {
+      const [x0, y0] = P(r, h0 * 15); const [x1, y1] = P(r, h1 * 15);
+      const large = (h1 - h0) * 15 > 180 ? 1 : 0;
+      return `M${f(x1)} ${f(y1)} A${r} ${r} 0 ${large} 0 ${f(x0)} ${f(y0)}`;
+    };
+    let minor = '', major = '';
+    for (let h = 0; h < 24; h++) {
+      const maj = h % 6 === 0;
+      const [x0, y0] = P(147, h * 15); const [x1, y1] = P(maj ? 136 : 141, h * 15);
+      const seg = `M${f(x0)} ${f(y0)}L${f(x1)} ${f(y1)}`;
+      if (maj) major += seg; else minor += seg;
+    }
+    const labels = [];
+    for (let h = 0; h < 24; h += 3) {
+      const [x, y] = P(161, h * 15);
+      const big = h % 6 === 0;
+      labels.push({ x: f(x), y: f(y), t: String(h).padStart(2, '0'), w: big ? 700 : 400, col: big ? c.fg : c.mute });
+    }
+    // Snapshot: Monday 16 Nov 2026, 07:21:59 Tehran
+    const now = 7 + 21 / 60 + 59 / 3600;
+    const [hx0, hy0] = P(-16, now * 15); const [hx1, hy1] = P(128, now * 15);
+    const [oax, oay] = P(99, 16.5 * 15); const [obx, oby] = P(99, 20.5 * 15);
+    const [icx, icy] = P(59, 20.5 * 15); const [idx, idy] = P(59, 16.5 * 15);
+    const bandOutline = `M${f(oax)} ${f(oay)} A99 99 0 0 1 ${f(obx)} ${f(oby)} L${f(icx)} ${f(icy)} A59 59 0 0 0 ${f(idx)} ${f(idy)} Z`;
+    const open = { syd: true, tok: true, lon: false, ny: false };
+    const o = { syd: open.syd ? 1 : 0.55, tok: open.tok ? 1 : 0.55, lon: open.lon ? 1 : 0.55, ny: open.ny ? 1 : 0.55 };
+    const ovActive = open.lon && open.ny;
+    const g = { bandOp: ovActive ? 0.32 : 0, lineOp: ovActive ? 1 : 0, colOp: ovActive ? 1 : 0 };
+    const ink = (k) => (open[k] ? c.inkOpen : c.inkClosed);
+    const cText = { ...c, tSyd: ink('syd'), tTok: ink('tok'), tLon: ink('lon'), tNy: ink('ny') };
+    const overlaps = [[3.5, 8.5], [11.5, 12.5], [16.5, 20.5], [23.5, 25.5]];
+    const segs = (s, e) => (e <= 24 ? [[s, e]] : [[s, 24], [0, e - 24]]);
+    const pct = (n) => (n / 24 * 100).toFixed(3);
+    const lane = [];
+    overlaps.forEach(([s, e]) => segs(s, e).forEach(([a, b]) => lane.push({ l: pct(a), w: pct(b - a) })));
+    const rows = [
+      { name:'Sydney', clock:'14:51', utc:'UTC+11', open:true, s:23.5, e:32.5, span:'07:00–16:00 · 23:30–08:30 Tehran', cd:'closes in 01:08:01', col:c.syd },
+      { name:'Tokyo', clock:'12:51', utc:'UTC+09', open:true, s:3.5, e:12.5, span:'09:00–18:00 · 03:30–12:30 Tehran', cd:'closes in 05:08:01', col:c.tok },
+      { name:'London', clock:'03:51', utc:'UTC+00', open:false, s:11.5, e:20.5, span:'08:00–17:00 · 11:30–20:30 Tehran', cd:'opens in 04:08:01', col:c.lon },
+      { name:'New York', clock:'22:51', utc:'UTC−05', open:false, s:16.5, e:25.5, span:'08:00–17:00 · 16:30–01:30 Tehran', cd:'opens in 09:08:01', col:c.ny }
+    ].map((r) => {
+      const sg = segs(r.s, r.e);
+      const a = sg[0]; const b = sg[1] || [0, 0];
+      return {
+        ...r,
+        tag: r.open ? 'OPEN' : 'CLOSED',
+        tagBg: r.open ? c.fg : c.closedBg,
+        tagFg: r.open ? c.bg : c.closedFg,
+        op: r.open ? 1 : 0.5,
+        l1: pct(a[0]), w1: pct(a[1] - a[0]),
+        l2: pct(b[0]), w2: pct(b[1] - b[0])
+      };
+    });
+    const colOf = { Sydney: c.syd, Tokyo: c.tok, London: c.lon, 'New York': c.ny };
+    const events = [
+      { name:'Sydney', kind:'CLOSES', time:'08:30', cd:'in 01:08:01' },
+      { name:'London', kind:'OPENS', time:'11:30', cd:'in 04:08:01' },
+      { name:'Tokyo', kind:'CLOSES', time:'12:30', cd:'in 05:08:01' },
+      { name:'New York', kind:'OPENS', time:'16:30', cd:'in 09:08:01' },
+      { name:'London', kind:'CLOSES', time:'20:30', cd:'in 13:08:01' },
+      { name:'Sydney', kind:'OPENS', time:'23:30', cd:'in 16:08:01' },
+      { name:'New York', kind:'CLOSES', time:'01:30', cd:'in 18:08:01' }
+    ].map((e, i) => {
+      const first = i === 0;
+      const isOpen = e.kind === 'OPENS';
+      return {
+        ...e, col: colOf[e.name],
+        pad: first ? '11px 12px' : '6px 12px',
+        bg: first ? c.panel : 'transparent',
+        bd: first ? c.tickMajor : 'transparent',
+        nameW: first ? 700 : 600, nameSize: first ? 17 : 14,
+        timeSize: first ? 16 : 13, cdSize: first ? 13 : 11.5,
+        cdW: first ? 96 : 84,
+        cdCol: first ? c.fg : c.mute,
+        kindBg: isOpen ? c.fg : 'transparent',
+        kindFg: isOpen ? c.bg : c.fg,
+        kindBd: isOpen ? c.fg : c.mute
+      };
+    });
+    const axis = [0, 6, 12, 18, 24].map((h) => ({ left: pct(h), t: String(h).padStart(2, '0') }));
+    const btn = (on) => ({ bg: on ? c.fg : 'transparent', fg: on ? c.bg : c.mute });
+    return {
+      c: cText, rows, labels, axis, lane, events, o, g,
+      d: {
+        tokR: rev(106, 3.5, 12.5), lonR: rev(88, 11.5, 20.5), bandOutline, band: arc(79, 16.5, 20.5),
+        syd: arc(124, 23.5, 32.5), tok: arc(106, 3.5, 12.5), lon: arc(88, 11.5, 20.5), ny: arc(70, 16.5, 25.5),
+        minor, major
+      },
+      h: { x0: f(hx0), y0: f(hy0), x1: f(hx1), y1: f(hy1) },
+      band: { left: pct(16.5), w: pct(4) },
+      nowPct: pct(now),
+      isLight: !dark, isDark: dark,
+      pinned: this.state.pinned, locked: this.state.locked,
+      pinBtn: this.state.pinned ? { bg: c.goldBg, bd: c.goldBg, fg: '#1A1400' } : { bg: c.panel, bd: c.line, fg: c.mute },
+      lockBtn: this.state.locked ? { bg: c.goldBg, bd: c.goldBg, fg: '#1A1400' } : { bg: c.panel, bd: c.line, fg: c.mute },
+      togglePin: () => this.setState({ pinned: !this.state.pinned }),
+      toggleLock: () => this.setState({ locked: !this.state.locked }),
+      lightBtn: btn(!dark), darkBtn: btn(dark),
+      setLight: () => this.setState({ mode: 'light' }),
+      setDark: () => this.setState({ mode: 'dark' })
+    };
+  }
+}
+</script>
+</body>
+</html>

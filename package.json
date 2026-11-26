@@ -1,0 +1,40 @@
+{
+  "name": "forex-clock-widget",
+  "version": "2.2.0",
+  "description": "Tehran time + Forex sessions desktop widget for Windows",
+  "main": "src/main.js",
+  "author": "Forex Clock",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "dist": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "local.forexclock.widget",
+    "productName": "Forex Clock",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "assets/icon.png",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "ForexClock-portable-${version}.exe"
+    },
+    "compression": "maximum"
+  }
+}
