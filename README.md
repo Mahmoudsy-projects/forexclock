@@ -5,12 +5,14 @@ Tehran time (digital + 24-hour radial dial) and the four Forex sessions – Sydn
 New York – with live status, countdowns and London × New York overlap highlighting.
 
 ## 1. Install & launch
-**Portable (no installation):** copy `ForexClock-portable-2.0.0.exe` anywhere you like (e.g. `C:\Tools\ForexClock\`)
+**Portable (no installation):** copy [`ForexClock-portable-2.2.0.exe`](https://github.com/Mahmoudsy-projects/forexclock/releases/tag/v2.2.0) anywhere you like (e.g. `C:\Tools\ForexClock\`)
 and double-click it. Windows 10 / 11, 64-bit. First start takes a few seconds (self-extraction).
 SmartScreen may warn because the file is unsigned: *More info → Run anyway*.
 
 **From source** (needs Node.js 20+): `npm install` → `npm start`. Build the exe on any OS: `npm run dist`.
 Tests: `npm test` (time engine) and `xvfb-run -a npx electron --no-sandbox test/e2e.js` (app, Linux CI).
+
+[راهنمای فارسی (PDF)](docs/ForexClock-Guide-fa.pdf) · For the GitHub release build, verify the checksum in the release’s `SHA256SUMS.txt`.
 
 ## 2. Start with Windows
 Open ⚙ settings (or right-click the clock / tray icon) → tick **Start with Windows**. The app registers
@@ -27,11 +29,11 @@ Manual alternative: `Win+R` → `shell:startup` → put a shortcut to the exe in
 | Key Time | Both views count down to the next RiskManager MT4 v112 point and show the active interval as an outer arc. Full view adds dashed markers for the previous and next points that fall on the displayed Tehran day. Each point follows its own market’s local time and DST rules. |
 | Always on top | pin button (gold = on) / settings / tray menu (default ON) |
 | Lock position & size | lock button / settings / tray menu |
-| Light / dark theme | sun / moon buttons (header in full view, on the ring in compact); remembered after restart |
+| Light / dark theme | sun / moon buttons (header in full view, in the bottom toolbar in compact); remembered after restart |
 | Transparency | Opacity slider at the bottom of the card (40–100 %) or tray → Transparency |
 | Minimize to tray | “–” button or minimize; the “×” also hides to tray (option) |
-| Full ⇄ Compact | square button (maximize/restore) in the header or on the ring; tray → *Compact view*; settings → View |
-| Settings | gear button (on the ring it opens the full view with the panel) |
+| Full ⇄ Compact | square button (maximize/restore) in the header or compact toolbar; tray → *Compact view*; settings → View |
+| Settings | gear button (in the compact toolbar it opens the full view with the panel) |
 | Restore | left-click / double-click the tray icon (or tray → Show widget) |
 | Quit | tray → Quit, or settings → Quit application |
 | Session hours | settings → Session hours (local time of each market) + optional local holidays |
